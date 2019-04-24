@@ -20,17 +20,33 @@ const members = [
 app.use(morgan('dev')) 
 
 app.get('/api/v1/members/:id', (req ,res) => {
-    res.send(members[(req.params.id)-1].name)
+    res.json(succes(members[(req.params.id)-1].name))
 })
 
 app.get('/api/v1/members', (req, res) => {
-    if(req.query.max != undefined) {
-        res.send(members.slice(0, req.query.max))
+    if(req.query.max != undefined && req.query.max > 0) {
+        res.send(succes(members.slice(0, req.query.max)))
+    }else if (req.query.max != undefined){
+        res.json(error('Wrong max value'))
     }else {
-        res.send(members)
+        res.json(succes(members))
     }
     
-    res.send(members)
+    res.json(members)
 })
 
 app.listen(8080, () => console.log('Started on port 8080'))
+
+function succes(result){
+    return {
+        status: 'succes',
+        resusult: result
+    }
+}
+
+function error(message) {
+    return {
+        status: 'error',
+        message: message
+    }
+}
