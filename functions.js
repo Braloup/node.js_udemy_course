@@ -1,4 +1,4 @@
-exports.succes = function succes(result){
+exports.successr = function succes(result){
     return {
         status: 'succes',
         resusult: result
