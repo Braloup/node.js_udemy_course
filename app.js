@@ -1,4 +1,4 @@
-const func = require('./functions');
+const {succes ,error} = require('./functions');
 const bodyParser = require('body-parser')
 const express = require('express');
 const morgan = require('morgan');
@@ -24,16 +24,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.get('/api/v1/members/:id', (req ,res) => {
-    res.json(func.succes(members[(req.params.id)-1].name))
+    res.json(succes(members[(req.params.id)-1].name))
 })
 
 app.get('/api/v1/members', (req, res) => {
     if(req.query.max != undefined && req.query.max > 0) {
-        res.send(func.succes(members.slice(0, req.query.max)))
+        res.send(succes(members.slice(0, req.query.max)))
     }else if (req.query.max != undefined){
-        res.json(func.error('Wrong max value'))
+        res.json(error('Wrong max value'))
     }else {
-        res.json(func.succes(members))
+        res.json(succes(members))
     }
     
     res.json(members)
@@ -67,7 +67,7 @@ app.post('/api/v1/members', (req, res) => {
             members.push(member)
     
             res.json(func.succes(member))
-            
+
         } 
 
        
